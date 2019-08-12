@@ -19,12 +19,41 @@ import com.google.cloud.translate.Translation;
  */
 public class GoogleTranslate {
 
+    /**
+     * 번역 결과 얻기
+     * @param text 텍스트
+     * @param langCode 언어코드
+     * @return 번역결과
+     */
+    public static TranslateResult translation(String text, String langCode){
+        Translate translate = TranslateOptions.getDefaultInstance().getService();
+        Detection detection = translate.detect(text);
+        if(langCode.equals(detection.getLanguage())){
+            TranslateResult translateResult = new TranslateResult();
+            translateResult.translate = text;
+            translateResult.isTranslate = false;
+            translateResult.langCodeDetection= langCode;
+            translateResult.langCodeTranslate= langCode;
+            return translateResult;
+        }
+        Translation translation =
+                translate.translate(
+                        text,
+                        Translate.TranslateOption.sourceLanguage(detection.getLanguage()),
+                        Translate.TranslateOption.targetLanguage(langCode));
+
+        TranslateResult translateResult = new TranslateResult();
+        translateResult.translate = translation.getTranslatedText();
+        translateResult.isTranslate = true;
+        translateResult.langCodeDetection= detection.getLanguage();
+        translateResult.langCodeTranslate= langCode;
+
+        return translateResult;
+    }
 
 
     public static void main(String... args) throws Exception {
-        // Instantiates a client
 
-//        System.setProperty("GOOGLE_APPLICATION_CREDENTIALS","C:\\Users\\macle\\Downloads\\lottehotel-a93c62024cb0.json");
         Translate translate = TranslateOptions.getDefaultInstance().getService();
 
         // The text to translate
