@@ -1,4 +1,7 @@
 package org.moara.translate.detect;
+
+import org.moara.translate.GoogleTranslate;
+
 /**
  * <pre>
  *  파 일 명 : KoreanLanguageDetection.java
@@ -34,7 +37,7 @@ public class KoreanLanguageDetection {
                 continue;
             }
 
-            if(isNumber(ch)){
+            if(GoogleTranslate.isNumber(ch)){
                 continue;
             }
 
@@ -58,14 +61,7 @@ public class KoreanLanguageDetection {
     }
 
 
-    /**
-     * char가 숫자인지 체크
-     * @param ch 체크할 케릭터
-     * @return isNumber
-     */
-    private static boolean isNumber(char ch){
-        return ch <= 57 && ch >= 48;
-    }
+
 
     public static void main(String[] args) {
 

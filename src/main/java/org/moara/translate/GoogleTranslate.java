@@ -4,6 +4,8 @@ import com.google.cloud.translate.Detection;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
+import org.moara.translate.detect.KoreanLanguageDetection;
+
 /**
  * <pre>
  *  파 일 명 : GoogleTranslate.java
@@ -11,8 +13,8 @@ import com.google.cloud.translate.Translation;
  *
  *  작 성 자 : macle(김용수)
  *  작 성 일 : 2019.08
- *  버    전 : 1.0
- *  수정이력 :
+ *  버    전 : 1.1
+ *  수정이력 : 2019.10.25
  *  기타사항 :
  * </pre>
  * @author Copyrights 2019 ㈜모아라. All right reserved.
@@ -27,8 +29,29 @@ public class GoogleTranslate {
      */
     public static TranslateResult translation(String text, String langCode){
         Translate translate = TranslateOptions.getDefaultInstance().getService();
-        Detection detection = translate.detect(text);
-        if(langCode.equals(detection.getLanguage())){
+
+
+        if(!isValid(text)){
+            TranslateResult translateResult = new TranslateResult();
+            translateResult.translate = text;
+            translateResult.isTranslate = false;
+            translateResult.langCodeDetection= langCode;
+            translateResult.langCodeTranslate= langCode;
+            return translateResult;
+        }
+
+        String detectionLangCode;
+        if(KoreanLanguageDetection.isKorean(text)){
+            detectionLangCode = IntoKoreanTranslate.LANG_CODE;
+        }else{
+            Detection detection = translate.detect(text);
+            detectionLangCode = detection.getLanguage();
+        }
+
+
+
+
+        if(langCode.equals(detectionLangCode)){
             TranslateResult translateResult = new TranslateResult();
             translateResult.translate = text;
             translateResult.isTranslate = false;
@@ -39,37 +62,70 @@ public class GoogleTranslate {
         Translation translation =
                 translate.translate(
                         text,
-                        Translate.TranslateOption.sourceLanguage(detection.getLanguage()),
+                        Translate.TranslateOption.sourceLanguage(detectionLangCode),
                         Translate.TranslateOption.targetLanguage(langCode));
 
         TranslateResult translateResult = new TranslateResult();
         translateResult.translate = translation.getTranslatedText();
         translateResult.isTranslate = true;
-        translateResult.langCodeDetection= detection.getLanguage();
+        translateResult.langCodeDetection= detectionLangCode;
         translateResult.langCodeTranslate= langCode;
 
         return translateResult;
     }
 
+    /**
+     * 유효성 체크
+     * @return 유효성
+     */
+    private static boolean isValid(String text){
+        String checkValue = text.replaceAll("[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]", "");
+
+        char [] chars = checkValue.toCharArray();
+
+        for(char ch : chars){
+            if(ch == ' '){
+                continue;
+            }
+
+            if(isNumber(ch)){
+                continue;
+            }
+
+
+            return true;
+
+        }
+
+
+        return false;
+
+    }
+
+    /**
+     * char가 숫자인지 체크
+     * @param ch 체크할 케릭터
+     * @return isNumber
+     */
+    public static boolean isNumber(char ch){
+        return ch <= 57 && ch >= 48;
+    }
 
     public static void main(String... args) throws Exception {
 
-        Translate translate = TranslateOptions.getDefaultInstance().getService();
+        String text ="난 한국이 좋아";
 
-        // The text to translate
-        String text = "Hello, world!";
+        TranslateResult translateResult = GoogleTranslate.translation(text, "en");
 
-        Detection detection = translate.detect(text);
-//        System.out.printf("Detection " + detection.getLanguage());
-        // Translates some text into Russian
-        Translation translation =
-                translate.translate(
-                        text,
-                        Translate.TranslateOption.sourceLanguage(detection.getLanguage()),
-                        Translate.TranslateOption.targetLanguage("ko"));
+        //번역여부
+        if(translateResult.isTranslate()){
+            //번역됨
+            //한국어이면 번영되지않음
+            System.out.println("번역됨");
+        }else{
+            System.out.println("번역되지않음");
+        }
 
-
-        System.out.println("Text: " + text);
-        System.out.println("Translation: " +  translation.getTranslatedText());
+        System.out.println("감지언어코드: " + translateResult.getLangCodeDetection() +", 번역언어코드: " +translateResult.getLangCodeTranslate() +", 번역내용: " + translateResult.translate );
     }
 }
