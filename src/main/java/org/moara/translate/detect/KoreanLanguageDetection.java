@@ -54,7 +54,7 @@ public class KoreanLanguageDetection {
 
         }
 
-        return koreanCount > foreignCount;
+        return koreanCount >= foreignCount;
     }
 
 

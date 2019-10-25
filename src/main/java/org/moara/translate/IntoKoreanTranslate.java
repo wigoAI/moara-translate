@@ -44,7 +44,7 @@ public class IntoKoreanTranslate {
     public static void main(String[] args) {
 
 
-        String text ="i love korea";
+        String text ="i love 7778888";
 
         TranslateResult translateResult = IntoKoreanTranslate.translation(text);
 
