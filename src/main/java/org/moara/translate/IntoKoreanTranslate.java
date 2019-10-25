@@ -46,9 +46,18 @@ public class IntoKoreanTranslate {
 
         String text ="i love korea";
 
-        TranslateResult translateResult = translation(text);
+        TranslateResult translateResult = IntoKoreanTranslate.translation(text);
 
-        System.out.println(translateResult.langCodeDetection +", " + translateResult.translate );
+        //번역여부
+        if(translateResult.isTranslate()){
+            //번역됨
+            //한국어이면 번영되지않음
+            System.out.println("번역됨");
+        }else{
+            System.out.println("한국어");
+        }
+
+        System.out.println("감지언어코드: " + translateResult.getLangCodeDetection() +", 번역언어코드: " +translateResult.getLangCodeTranslate() +", 번역내용: " + translateResult.translate );
 
 
     }

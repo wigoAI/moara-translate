@@ -25,10 +25,16 @@ public class KoreanLanguageDetection {
 
         int foreignCount = 0;
 
-        char [] chars = text.toCharArray();
+        String checkValue = text.replaceAll("[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]", "");
+
+        char [] chars = checkValue.toCharArray();
         for(char ch : chars){
 
             if(ch ==' '){
+                continue;
+            }
+
+            if(isNumber(ch)){
                 continue;
             }
 
@@ -51,6 +57,18 @@ public class KoreanLanguageDetection {
         return koreanCount > foreignCount;
     }
 
+
+    /**
+     * char가 숫자인지 체크
+     * @param ch 체크할 케릭터
+     * @return
+     */
+    public static boolean isNumber(char ch){
+        if(ch > 57 || ch < 48)
+            return false;
+
+        return true;
+    }
 
     public static void main(String[] args) {
 
