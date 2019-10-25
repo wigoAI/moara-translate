@@ -61,13 +61,10 @@ public class KoreanLanguageDetection {
     /**
      * char가 숫자인지 체크
      * @param ch 체크할 케릭터
-     * @return
+     * @return isNumber
      */
-    public static boolean isNumber(char ch){
-        if(ch > 57 || ch < 48)
-            return false;
-
-        return true;
+    private static boolean isNumber(char ch){
+        return ch <= 57 && ch >= 48;
     }
 
     public static void main(String[] args) {
