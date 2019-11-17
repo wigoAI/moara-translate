@@ -27,7 +27,7 @@ public class IntoKoreanTranslate {
      */
     public static TranslateResult translation(String text){
 
-        if(KoreanLanguageDetection.isKorean(text)){
+        if(KoreanLanguageDetection.isKorean(text) || !GoogleTranslate.isValid(text)){
             TranslateResult translateResult = new TranslateResult();
             translateResult.translate = text;
             translateResult.isTranslate = false;

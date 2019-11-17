@@ -74,11 +74,23 @@ public class GoogleTranslate {
         return translateResult;
     }
 
+
+    public static String getTranslatedText(String detectCode, String langCode, String text){
+        Translate translate = TranslateOptions.getDefaultInstance().getService();
+        Translation translation =
+                translate.translate(
+                        text,
+                        Translate.TranslateOption.sourceLanguage(detectCode),
+                        Translate.TranslateOption.targetLanguage(langCode));
+
+        return translation.getTranslatedText();
+    }
+
     /**
      * 유효성 체크
      * @return 유효성
      */
-    private static boolean isValid(String text){
+    static boolean isValid(String text){
         String checkValue = text.replaceAll("[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]", "");
 
         char [] chars = checkValue.toCharArray();
@@ -110,6 +122,9 @@ public class GoogleTranslate {
     public static boolean isNumber(char ch){
         return ch <= 57 && ch >= 48;
     }
+
+
+
 
     public static void main(String... args) throws Exception {
 
