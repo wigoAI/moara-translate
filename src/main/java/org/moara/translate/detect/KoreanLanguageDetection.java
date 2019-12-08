@@ -28,14 +28,14 @@ public class KoreanLanguageDetection {
 
         int foreignCount = 0;
 
-        String checkValue = text.replaceAll("[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]", "");
+        String checkValue = text.replaceAll("[ !@#$%^&*(),.?\":{}|<>]", "");
 
         char [] chars = checkValue.toCharArray();
         for(char ch : chars){
 
-            if(ch ==' '){
-                continue;
-            }
+//            if(ch ==' '){
+//                continue;
+//            }
 
             if(GoogleTranslate.isNumber(ch)){
                 continue;
@@ -64,7 +64,11 @@ public class KoreanLanguageDetection {
 
 
     public static void main(String[] args) {
-
+        if(isKorean("こんにちは")){
+            System.out.println("한글");
+        }else{
+            System.out.println("아님");
+        }
 
 
 
