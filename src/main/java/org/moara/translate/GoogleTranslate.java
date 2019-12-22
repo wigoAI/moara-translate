@@ -91,7 +91,7 @@ public class GoogleTranslate {
      * @return 유효성
      */
     static boolean isValid(String text){
-        String checkValue = text.replaceAll("[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]", "");
+        String checkValue = text.replaceAll("[ !@#$%^&*(),.?\":{}|<>]", "");
 
         char [] chars = checkValue.toCharArray();
 
