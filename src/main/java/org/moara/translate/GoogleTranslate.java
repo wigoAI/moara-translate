@@ -21,6 +21,8 @@ import org.moara.translate.detect.KoreanLanguageDetection;
  */
 public class GoogleTranslate {
 
+    public static final String REMOVE_REGEX = "[!@#$%^&*+(),.\\-=?\":{}|<>\\d\\s]";
+
     /**
      * 번역 결과 얻기
      * @param text 텍스트
@@ -91,7 +93,7 @@ public class GoogleTranslate {
      * @return 유효성
      */
     static boolean isValid(String text){
-        String checkValue = text.replaceAll("[ !@#$%^&*(),.?\":{}|<>]", "");
+        String checkValue = text.replaceAll(REMOVE_REGEX, "");
 
         char [] chars = checkValue.toCharArray();
 
@@ -128,19 +130,6 @@ public class GoogleTranslate {
 
     public static void main(String... args) throws Exception {
 
-        String text ="난 한국이 좋아";
-
-        TranslateResult translateResult = GoogleTranslate.translation(text, "en");
-
-        //번역여부
-        if(translateResult.isTranslate()){
-            //번역됨
-            //한국어이면 번영되지않음
-            System.out.println("번역됨");
-        }else{
-            System.out.println("번역되지않음");
-        }
-
-        System.out.println("감지언어코드: " + translateResult.getLangCodeDetection() +", 번역언어코드: " +translateResult.getLangCodeTranslate() +", 번역내용: " + translateResult.translate );
+        System.out.println(isValid("    5+=------"));
     }
 }

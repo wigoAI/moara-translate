@@ -28,7 +28,7 @@ public class KoreanLanguageDetection {
 
         int foreignCount = 0;
 
-        String checkValue = text.replaceAll("[ !@#$%^&*(),.?\":{}|<>]", "");
+        String checkValue = text.replaceAll(GoogleTranslate.REMOVE_REGEX, "");
 
         char [] chars = checkValue.toCharArray();
         for(char ch : chars){
