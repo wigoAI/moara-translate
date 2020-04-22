@@ -44,10 +44,10 @@ public class IntoKoreanTranslate {
     public static void main(String[] args) {
 
 
-        String text ="i love 7778888";
-
+        String text ="Отель очень современный, отличные номера, шикарные завтраки. Всё время в нём останавливаюсь. Но персонал в состоянии испортить настроение даже в таком отеле. При заказе ужина в номер соединение идёт не с «румсервисом», а с ресепшн. Заказ принимает работник, принимающий гостей... а потом передаёт его на кухню.Я больше часа ждал своего заказа, оказалось, что цепочка не сработала... Пришлось ложиться спать голодным.Кстати, никто из персонала извинений не принёс...";
+//        System.out.println(Remove);
         TranslateResult translateResult = IntoKoreanTranslate.translation(text);
-
+        System.out.println(KoreanLanguageDetection.isKorean(text) );
         //번역여부
         if(translateResult.isTranslate()){
             //번역됨
@@ -58,7 +58,10 @@ public class IntoKoreanTranslate {
         }
 
         System.out.println("감지언어코드: " + translateResult.getLangCodeDetection() +", 번역언어코드: " +translateResult.getLangCodeTranslate() +", 번역내용: " + translateResult.translate );
-
+        String inputContents = "there is no virus";
+		
+		String returns = GoogleTranslate.getTranslatedText("en", "ko", inputContents);
+		System.out.println(returns);
 
     }
 
