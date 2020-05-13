@@ -22,14 +22,32 @@ import org.moara.translate.detect.KoreanLanguageDetection;
 public class GoogleTranslate {
 
     public static final String REMOVE_REGEX = "[!@#$%^&*+(),.\\-=?\":{}|<>\\d\\s]";
+    public static final String GOOGLE_TRANSLATE_FORMAT_CODE = "text";
 
     /**
      * 번역 결과 얻기
+     * format text fix  text=\n 인식
      * @param text 텍스트
      * @param langCode 언어코드
      * @return 번역결과
      */
     public static TranslateResult translation(String text, String langCode){
+        return translation(text, langCode, GOOGLE_TRANSLATE_FORMAT_CODE);
+    }
+
+    /**
+     * 번역 결과 얻기
+     *
+     * Sets the format of the source text, in either HTML (default) or plain-text. A value of {@code
+     * html} indicates HTML and a value of {@code text} indicates plain-text.
+     * version 1.75
+     *
+     * @param text 텍스트
+     * @param langCode 언어코드
+     * @param format html, text
+     * @return 번역결과
+     */
+    public static TranslateResult translation(String text, String langCode, String format){
         Translate translate = TranslateOptions.getDefaultInstance().getService();
 
 
@@ -65,7 +83,9 @@ public class GoogleTranslate {
                 translate.translate(
                         text,
                         Translate.TranslateOption.sourceLanguage(detectionLangCode),
-                        Translate.TranslateOption.targetLanguage(langCode));
+                        Translate.TranslateOption.targetLanguage(langCode),
+                        Translate.TranslateOption.format(format)
+                );
 
         TranslateResult translateResult = new TranslateResult();
         translateResult.translate = translation.getTranslatedText();
@@ -76,14 +96,19 @@ public class GoogleTranslate {
         return translateResult;
     }
 
-
     public static String getTranslatedText(String detectCode, String langCode, String text){
+        return getTranslatedText(detectCode, langCode, text, GOOGLE_TRANSLATE_FORMAT_CODE);
+    }
+
+    public static String getTranslatedText(String detectCode, String langCode, String text, String format){
         Translate translate = TranslateOptions.getDefaultInstance().getService();
         Translation translation =
                 translate.translate(
                         text,
                         Translate.TranslateOption.sourceLanguage(detectCode),
-                        Translate.TranslateOption.targetLanguage(langCode));
+                        Translate.TranslateOption.targetLanguage(langCode),
+                        Translate.TranslateOption.format(format)
+                );
 
         return translation.getTranslatedText();
     }
