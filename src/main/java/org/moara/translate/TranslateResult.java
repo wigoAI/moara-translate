@@ -1,17 +1,24 @@
+/*
+ * Copyright (C) 2020 Wigo Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.moara.translate;
 
+
 /**
- * <pre>
- *  파 일 명 : TranslateResult.java
- *  설    명 : 번역 결과
- *
- *  작 성 자 : macle(김용수)
- *  작 성 일 : 2019.08
- *  버    전 : 1.0
- *  수정이력 :
- *  기타사항 :
- * </pre>
- * @author Copyrights 2019 ㈜모아라. All right reserved.
+ * 번역 결과
+ * @author macle
  */
 public class TranslateResult {
     /**
@@ -36,7 +43,7 @@ public class TranslateResult {
     /**
      * 번역여부
      * 감지 언어코드와 번역언어 코드가 같으면 false 다르면 true
-     * @return 번역 여뷰
+     * @return boolean 번역 여뷰
      */
     public boolean isTranslate() {
         return isTranslate;
@@ -44,7 +51,7 @@ public class TranslateResult {
 
     /**
      * 감지 언어 코드 얻기
-     * @return 감지 언어 코드
+     * @return String 감지 언어 코드
      */
     public String getLangCodeDetection() {
         return langCodeDetection;
@@ -52,7 +59,7 @@ public class TranslateResult {
 
     /**
      * 번역 언어 코드 얻기
-     * @return 번역 언어 코드
+     * @return String 번역 언어 코드
      */
     public String getLangCodeTranslate() {
         return langCodeTranslate;
@@ -60,7 +67,7 @@ public class TranslateResult {
 
     /**
      * 번역 결과 얻기
-     * @return 번역 결과
+     * @return String 번역 결과
      */
     public String getTranslate() {
         return translate;

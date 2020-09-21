@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2020 Wigo Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.moara.translate;
 
 import com.google.cloud.translate.Detection;
@@ -7,18 +22,10 @@ import com.google.cloud.translate.Translation;
 import org.moara.translate.detect.KoreanLanguageDetection;
 
 /**
- * <pre>
- *  파 일 명 : GoogleTranslate.java
- *  설    명 : 구글 번역을 이용한 텍스트 번역
- *
- *  작 성 자 : macle(김용수)
- *  작 성 일 : 2019.08
- *  버    전 : 1.1
- *  수정이력 : 2019.10.25
- *  기타사항 :
- * </pre>
- * @author Copyrights 2019 ㈜모아라. All right reserved.
+ * 구글 번역을 이용한 텍스트 번역
+ * @author macle
  */
+@SuppressWarnings("unused")
 public class GoogleTranslate {
 
     public static final String REMOVE_REGEX = "[!@#$%^&*+(),.\\-=?\":{}|<>\\d\\s]";
@@ -27,9 +34,9 @@ public class GoogleTranslate {
     /**
      * 번역 결과 얻기
      * format text fix  text=\n 인식
-     * @param text 텍스트
-     * @param langCode 언어코드
-     * @return 번역결과
+     * @param text String 텍스트
+     * @param langCode String 언어코드
+     * @return TranslateResult 번역결과
      */
     public static TranslateResult translation(String text, String langCode){
         return translation(text, langCode, GOOGLE_TRANSLATE_FORMAT_CODE);
@@ -42,16 +49,16 @@ public class GoogleTranslate {
      * html} indicates HTML and a value of {@code text} indicates plain-text.
      * version 1.75
      *
-     * @param text 텍스트
-     * @param langCode 언어코드
-     * @param format html, text
-     * @return 번역결과
+     * @param text String 텍스트
+     * @param langCode String 언어코드
+     * @param format String html, text
+     * @return TranslateResult 번역결과
      */
     public static TranslateResult translation(String text, String langCode, String format){
         Translate translate = TranslateOptions.getDefaultInstance().getService();
 
 
-        if(!isValid(text)){
+        if(!valid(text)){
             TranslateResult translateResult = new TranslateResult();
             translateResult.translate = text;
             translateResult.isTranslate = false;
@@ -100,6 +107,14 @@ public class GoogleTranslate {
         return getTranslatedText(detectCode, langCode, text, GOOGLE_TRANSLATE_FORMAT_CODE);
     }
 
+    /**
+     *
+     * @param detectCode String 감지 언어코드
+     * @param langCode String 번역 언어코드
+     * @param text String
+     * @param format String
+     * @return String
+     */
     public static String getTranslatedText(String detectCode, String langCode, String text, String format){
         Translate translate = TranslateOptions.getDefaultInstance().getService();
         Translation translation =
@@ -115,46 +130,30 @@ public class GoogleTranslate {
 
     /**
      * 유효성 체크
-     * @return 유효성
+     * @return boolean 유효성
      */
-    static boolean isValid(String text){
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public static boolean valid(String text){
         String checkValue = text.replaceAll(REMOVE_REGEX, "");
 
         char [] chars = checkValue.toCharArray();
 
         for(char ch : chars){
-            if(ch == ' '){
-                continue;
+            if(ch != ' ' && !isNumber(ch)){
+                return true;
             }
-
-            if(isNumber(ch)){
-                continue;
-            }
-
-
-            return true;
-
         }
-
-
         return false;
-
     }
 
     /**
      * char가 숫자인지 체크
-     * @param ch 체크할 케릭터
-     * @return isNumber
+     * @param ch char 체크할 케릭터
+     * @return boolean isNumber
      */
     public static boolean isNumber(char ch){
         return ch <= 57 && ch >= 48;
     }
 
 
-
-
-    public static void main(String... args) throws Exception {
-
-        System.out.println(isValid("    5+=------"));
-    }
 }
