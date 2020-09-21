@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.moara.translate</groupId>
-    <artifactId>moara-trading</artifactId>
+    <artifactId>moara-translate</artifactId>
     <version>0.7.0</version>
     <packaging>jar</packaging>
 
-    <name>moara-trading</name>
+    <name>moara-translate</name>
     <description>translate</description>
     <url>https://github.com/wigoAI/moara-translate</url>
 

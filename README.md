@@ -6,3 +6,14 @@
 # 개발환경
 - open jdk 1.8
 - google-cloud-translate 1.75
+
+
+# gradle
+implementation 'org.moara.translate:moara-translate:0.7.0'
+
+# etc
+https://mvnrepository.com/artifact/org.moara.translate/moara-translate/0.7.0
+
+# communication
+### 문의사항
+- https://wigo.ai/
