@@ -130,6 +130,7 @@ public class GoogleTranslate {
 
     /**
      * 유효성 체크
+     * @param text String
      * @return boolean 유효성
      */
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
