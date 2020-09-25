@@ -9,10 +9,10 @@
 
 
 # gradle
-implementation 'org.moara.translate:moara-translate:0.7.0'
+implementation 'org.moara.translate:moara-translate:0.7.1'
 
 # etc
-https://mvnrepository.com/artifact/org.moara.translate/moara-translate/0.7.0
+https://mvnrepository.com/artifact/org.moara.translate/moara-translate/0.7.1
 
 # communication
 ### 문의사항

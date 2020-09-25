@@ -6,7 +6,7 @@
 
     <groupId>org.moara.translate</groupId>
     <artifactId>moara-translate</artifactId>
-    <version>0.7.0</version>
+    <version>0.7.1</version>
     <packaging>jar</packaging>
 
     <name>moara-translate</name>
@@ -23,8 +23,8 @@
 
     <developers>
         <developer>
-            <name>moara</name>
-            <email>orgmoara@gmail.com</email>
+            <name>macle86</name>
+            <email>ysys86a@gmail.com</email>
         </developer>
     </developers>
 

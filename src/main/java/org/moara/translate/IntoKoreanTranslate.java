@@ -63,20 +63,4 @@ public class IntoKoreanTranslate {
 
     }
 
-
-    public static void main(String[] args) {
-
-//        TranslateTextRequest
-        String tt = "서울에선 시그니엘이 맞습니다. ㅎㅎ\",\"가족 여행을 종종 다닙니다. \n" +
-                "처와 딸이 호텔을 좋아해서요 ㅎㅎ\n" +
-                "위치와 높이, 안락함과 안정성 저희 수준에 거의 모든 부분에 수준 높은 서비스를 받았습니다. 감사합니다. ㅎ";
-
-//        String inputContents = "there is no virus";
-//
-//		String returns = GoogleTranslate.getTranslatedText("en", "ko", inputContents);
-//		System.out.println(returns);
-
-    }
-
-
 }
